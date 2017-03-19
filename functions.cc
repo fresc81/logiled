@@ -35,7 +35,6 @@ NAN_METHOD(GetSdkVersion) {
 NAN_METHOD(GetConfigOptionNumber) {
     Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
     if (arg0.IsEmpty()) {
         info.GetReturnValue().Set(Nan::New(false));
     } else {
@@ -65,7 +64,6 @@ NAN_METHOD(GetConfigOptionNumber) {
 NAN_METHOD(GetConfigOptionBool) {
     Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
     if (arg0.IsEmpty()) {
         info.GetReturnValue().Set(Nan::New(false));
     } else {
@@ -105,22 +103,19 @@ NAN_METHOD(SetConfigOptionLabel) {
 }
 
 NAN_METHOD(SetTargetDevice) {
-    Nan::MaybeLocal<v8::Number> arg0 = Nan::To<v8::Number>(info[0]);
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
     if (arg0.IsEmpty()) {
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(false));
+        info.GetReturnValue().Set(Nan::New(false));
     } else {
-        int targetDevice = Nan::To<int>(arg0.ToLocalChecked()).FromJust();
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedSetTargetDevice(targetDevice)));
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int targetDevice = Nan::To<int>(Nan::Get(obj, Nan::New("targetDevice").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedSetTargetDevice(targetDevice)));
     }
-    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(SaveCurrentLighting) {
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-    Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedSaveCurrentLighting()));
-    info.GetReturnValue().Set(obj);
+    info.GetReturnValue().Set(Nan::New(LogiLedSaveCurrentLighting()));
 }
 
 NAN_METHOD(SetLighting) {
