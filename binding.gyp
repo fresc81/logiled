@@ -2,6 +2,14 @@
     "targets": [
     ],
     "conditions" : [
+        ["OS!='win'", {
+            "targets": [
+                {
+                    "target_name": "do_nothing",
+                    "type": "none",
+                }
+            ],
+        }],
         ["OS=='win'", {
             "targets": [
 
