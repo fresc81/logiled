@@ -1,5 +1,26 @@
 {
-    "targets": [],
+    "targets": [
+        {
+            "target_name": "build_typescript",
+            "type": "none",
+            "actions": [
+                {
+                    "action_name": "run_typescript_compiler",
+                    "inputs": [ "constants.ts", "dummy.ts" ],
+                    "outputs": [ "dist/constants.js", "dist/dummy.js" ],
+                    "action": [
+                        "tsc",
+                            "--removeComments",
+                            "--preserveConstEnums",
+                            "--outDir", "dist",
+                            
+                            "constants.ts",
+                            "dummy.ts"
+                    ]
+                }
+            ]
+        }
+    ],
     "conditions" : [
         ["OS=='win'", {
             "targets": [
@@ -59,26 +80,6 @@
                         }
                     ]
                 },
-                
-                {
-                    "target_name": "build_constants",
-                    "type": "none",
-                    "actions": [
-                        {
-                            "action_name": "run_typescript_compiler",
-                            "inputs": [ "constants.ts" ],
-                            "outputs": [ "dist/constants.js" ],
-                            "action": [
-                                "tsc",
-                                    "--removeComments",
-                                    "--preserveConstEnums",
-                                    "--outDir", "dist",
-                                    
-                                    "constants.ts"
-                            ]
-                        }
-                    ]
-                }
                 
             ],
         }]

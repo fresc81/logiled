@@ -9,9 +9,13 @@ progressBar.format = '$bar; $percentage;% finished.';
 
 var writeStream = new fstream.Writer(__dirname);
 
+// only download SDK if not already done
 if (!fs.existsSync(__dirname+'/LED')) {
 
+    // download and unzip SDK into the LED folder...
     console.log('Download and unzip Logitech LED SDK...');
+
+    // also show a fancy progress bar if stdout is a terminal
     progress(request('https://gaming.logitech.com/sdk/LED_8.87.zip'), {
         throttle: 250
     })

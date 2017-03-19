@@ -1,4 +1,9 @@
 
+/*
+ * the constants exposed by the Logitech LED SDK header file.
+ * provides fancy reverse lookup for KeyNames ( KeyName.ESC -> 0x01 ; KeyName[0x01] -> 'ESC' )
+ */
+
 module constants {
 
     export const LED_BITMAP_WIDTH = 21
