@@ -52,12 +52,12 @@
                     "conditions" : [
                         ["target_arch=='ia32'", {
                             'link_settings': {
-                                "libraries": [ "-l../LED/Lib/x86/LogitechLEDLib.lib" ]
+                                "libraries": [ "-l../LED/Lib/x86/LogitechLEDLib.lib", "notelemetry.obj" ]
                             }
                         }],
                         ["target_arch=='x64'", {
                             'link_settings': {
-                                "libraries": [ "-l../LED/Lib/x64/LogitechLEDLib.lib" ]
+                                "libraries": [ "-l../LED/Lib/x64/LogitechLEDLib.lib", "notelemetry.obj" ]
                             }
                         }]
                     ],
