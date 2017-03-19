@@ -45,6 +45,9 @@
                 {
                     "target_name": "copy_target",
                     "dependencies": [ "bindings" ],
+                    "variables": {
+                        "target_platform": "win32"
+                    },
                     "type": "none",
                     "copies": [
                         {
@@ -52,7 +55,7 @@
                                 "<(PRODUCT_DIR)/bindings.node",
                                 "<(PRODUCT_DIR)/bindings.pdb"
                             ],
-                            "destination": "dist/<(target_arch)"
+                            "destination": "dist/<(target_platform)/<(target_arch)"
                         }
                     ]
                 },
