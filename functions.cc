@@ -119,74 +119,57 @@ NAN_METHOD(SaveCurrentLighting) {
 }
 
 NAN_METHOD(SetLighting) {
-    Nan::MaybeLocal<v8::Number> arg0 = Nan::To<v8::Number>(info[0]);
-    Nan::MaybeLocal<v8::Number> arg1 = Nan::To<v8::Number>(info[1]);
-    Nan::MaybeLocal<v8::Number> arg2 = Nan::To<v8::Number>(info[2]);
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-    if (arg0.IsEmpty() || arg1.IsEmpty() || arg2.IsEmpty()) {
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(false));
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
     } else {
-        int redPercentage   = Nan::To<int>(arg0.ToLocalChecked()).FromJust()
-        ,   greenPercentage = Nan::To<int>(arg1.ToLocalChecked()).FromJust()
-        ,   bluePercentage  = Nan::To<int>(arg2.ToLocalChecked()).FromJust();
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedSetLighting(redPercentage, greenPercentage, bluePercentage)));
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int redPercentage   = Nan::To<int>(Nan::Get(obj, Nan::New("redPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   greenPercentage = Nan::To<int>(Nan::Get(obj, Nan::New("greenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   bluePercentage  = Nan::To<int>(Nan::Get(obj, Nan::New("bluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedSetLighting(redPercentage, greenPercentage, bluePercentage)));
     }
-    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(RestoreLighting) {
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-    Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedRestoreLighting()));
-    info.GetReturnValue().Set(obj);
+    info.GetReturnValue().Set(Nan::New(LogiLedRestoreLighting()));
 }
 
 NAN_METHOD(FlashLighting) {
-    Nan::MaybeLocal<v8::Number> arg0 = Nan::To<v8::Number>(info[0]);
-    Nan::MaybeLocal<v8::Number> arg1 = Nan::To<v8::Number>(info[1]);
-    Nan::MaybeLocal<v8::Number> arg2 = Nan::To<v8::Number>(info[2]);
-    Nan::MaybeLocal<v8::Number> arg3 = Nan::To<v8::Number>(info[3]);
-    Nan::MaybeLocal<v8::Number> arg4 = Nan::To<v8::Number>(info[4]);
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-    if (arg0.IsEmpty() || arg1.IsEmpty() || arg2.IsEmpty() || arg3.IsEmpty() || arg4.IsEmpty()) {
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(false));
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
     } else {
-        int redPercentage        = Nan::To<int>(arg0.ToLocalChecked()).FromJust()
-        ,   greenPercentage      = Nan::To<int>(arg1.ToLocalChecked()).FromJust()
-        ,   bluePercentage       = Nan::To<int>(arg2.ToLocalChecked()).FromJust()
-        ,   milliSecondsDuration = Nan::To<int>(arg3.ToLocalChecked()).FromJust()
-        ,   milliSecondsInterval = Nan::To<int>(arg4.ToLocalChecked()).FromJust();
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedFlashLighting(redPercentage, greenPercentage, bluePercentage, milliSecondsDuration, milliSecondsInterval)));
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int redPercentage         = Nan::To<int>(Nan::Get(obj, Nan::New("redPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   greenPercentage       = Nan::To<int>(Nan::Get(obj, Nan::New("greenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   bluePercentage        = Nan::To<int>(Nan::Get(obj, Nan::New("bluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   milliSecondsDuration  = Nan::To<int>(Nan::Get(obj, Nan::New("milliSecondsDuration").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   milliSecondsInterval  = Nan::To<int>(Nan::Get(obj, Nan::New("milliSecondsInterval").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedFlashLighting(redPercentage, greenPercentage, bluePercentage, milliSecondsDuration, milliSecondsInterval)));
     }
-    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(PulseLighting) {
-    Nan::MaybeLocal<v8::Number> arg0 = Nan::To<v8::Number>(info[0]);
-    Nan::MaybeLocal<v8::Number> arg1 = Nan::To<v8::Number>(info[1]);
-    Nan::MaybeLocal<v8::Number> arg2 = Nan::To<v8::Number>(info[2]);
-    Nan::MaybeLocal<v8::Number> arg3 = Nan::To<v8::Number>(info[3]);
-    Nan::MaybeLocal<v8::Number> arg4 = Nan::To<v8::Number>(info[4]);
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-    if (arg0.IsEmpty() || arg1.IsEmpty() || arg2.IsEmpty() || arg3.IsEmpty() || arg4.IsEmpty()) {
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(false));
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
     } else {
-        int redPercentage        = Nan::To<int>(arg0.ToLocalChecked()).FromJust()
-        ,   greenPercentage      = Nan::To<int>(arg1.ToLocalChecked()).FromJust()
-        ,   bluePercentage       = Nan::To<int>(arg2.ToLocalChecked()).FromJust()
-        ,   milliSecondsDuration = Nan::To<int>(arg3.ToLocalChecked()).FromJust()
-        ,   milliSecondsInterval = Nan::To<int>(arg4.ToLocalChecked()).FromJust();
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedPulseLighting(redPercentage, greenPercentage, bluePercentage, milliSecondsDuration, milliSecondsInterval)));
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int redPercentage         = Nan::To<int>(Nan::Get(obj, Nan::New("redPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   greenPercentage       = Nan::To<int>(Nan::Get(obj, Nan::New("greenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   bluePercentage        = Nan::To<int>(Nan::Get(obj, Nan::New("bluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   milliSecondsDuration  = Nan::To<int>(Nan::Get(obj, Nan::New("milliSecondsDuration").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   milliSecondsInterval  = Nan::To<int>(Nan::Get(obj, Nan::New("milliSecondsInterval").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedPulseLighting(redPercentage, greenPercentage, bluePercentage, milliSecondsDuration, milliSecondsInterval)));
     }
-    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(StopEffects) {
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-    Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedStopEffects()));
-    info.GetReturnValue().Set(obj);
+    info.GetReturnValue().Set(Nan::New(LogiLedStopEffects()));
 }
 
 NAN_METHOD(SetLightingFromBitmap) {
@@ -206,116 +189,94 @@ NAN_METHOD(SetLightingForKeyWithQuartzCode) {
 }
 
 NAN_METHOD(SetLightingForKeyWithKeyName) {
-    Nan::MaybeLocal<v8::Number> arg0 = Nan::To<v8::Number>(info[0]);
-    Nan::MaybeLocal<v8::Number> arg1 = Nan::To<v8::Number>(info[1]);
-    Nan::MaybeLocal<v8::Number> arg2 = Nan::To<v8::Number>(info[2]);
-    Nan::MaybeLocal<v8::Number> arg3 = Nan::To<v8::Number>(info[3]);
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-    if (arg0.IsEmpty() || arg1.IsEmpty() || arg2.IsEmpty() || arg3.IsEmpty()) {
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(false));
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
     } else {
-        int keyName              = Nan::To<int>(arg0.ToLocalChecked()).FromJust()
-        ,   redPercentage        = Nan::To<int>(arg1.ToLocalChecked()).FromJust()
-        ,   greenPercentage      = Nan::To<int>(arg2.ToLocalChecked()).FromJust()
-        ,   bluePercentage       = Nan::To<int>(arg3.ToLocalChecked()).FromJust();
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedSetLightingForKeyWithKeyName((LogiLed::KeyName)keyName, redPercentage, greenPercentage, bluePercentage)));
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int keyName               = Nan::To<int>(Nan::Get(obj, Nan::New("keyName").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   redPercentage         = Nan::To<int>(Nan::Get(obj, Nan::New("redPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   greenPercentage       = Nan::To<int>(Nan::Get(obj, Nan::New("greenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   bluePercentage        = Nan::To<int>(Nan::Get(obj, Nan::New("bluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedSetLightingForKeyWithKeyName((LogiLed::KeyName)keyName, redPercentage, greenPercentage, bluePercentage)));
     }
-    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(SaveLightingForKey) {
-    Nan::MaybeLocal<v8::Number> arg0 = Nan::To<v8::Number>(info[0]);
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
     if (arg0.IsEmpty()) {
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(false));
+        info.GetReturnValue().Set(Nan::New(false));
     } else {
-        int keyName              = Nan::To<int>(arg0.ToLocalChecked()).FromJust();
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedSaveLightingForKey((LogiLed::KeyName)keyName)));
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int keyName               = Nan::To<int>(Nan::Get(obj, Nan::New("keyName").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedSaveLightingForKey((LogiLed::KeyName)keyName)));
     }
-    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(RestoreLightingForKey) {
-    Nan::MaybeLocal<v8::Number> arg0 = Nan::To<v8::Number>(info[0]);
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
     if (arg0.IsEmpty()) {
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(false));
+        info.GetReturnValue().Set(Nan::New(false));
     } else {
-        int keyName              = Nan::To<int>(arg0.ToLocalChecked()).FromJust();
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedRestoreLightingForKey((LogiLed::KeyName)keyName)));
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int keyName               = Nan::To<int>(Nan::Get(obj, Nan::New("keyName").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedRestoreLightingForKey((LogiLed::KeyName)keyName)));
     }
-    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(ExcludeKeysFromBitmap) {
 }
 
 NAN_METHOD(FlashSingleKey) {
-    Nan::MaybeLocal<v8::Number> arg0 = Nan::To<v8::Number>(info[0]);
-    Nan::MaybeLocal<v8::Number> arg1 = Nan::To<v8::Number>(info[1]);
-    Nan::MaybeLocal<v8::Number> arg2 = Nan::To<v8::Number>(info[2]);
-    Nan::MaybeLocal<v8::Number> arg3 = Nan::To<v8::Number>(info[3]);
-    Nan::MaybeLocal<v8::Number> arg4 = Nan::To<v8::Number>(info[4]);
-    Nan::MaybeLocal<v8::Number> arg5 = Nan::To<v8::Number>(info[5]);
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-    if (arg0.IsEmpty() || arg1.IsEmpty() || arg2.IsEmpty() || arg3.IsEmpty() || arg4.IsEmpty() || arg5.IsEmpty()) {
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(false));
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
     } else {
-        int keyName              = Nan::To<int>(arg0.ToLocalChecked()).FromJust()
-        ,   redPercentage        = Nan::To<int>(arg1.ToLocalChecked()).FromJust()
-        ,   greenPercentage      = Nan::To<int>(arg2.ToLocalChecked()).FromJust()
-        ,   bluePercentage       = Nan::To<int>(arg3.ToLocalChecked()).FromJust()
-        ,   milliSecondsDuration = Nan::To<int>(arg4.ToLocalChecked()).FromJust()
-        ,   milliSecondsInterval = Nan::To<int>(arg5.ToLocalChecked()).FromJust();
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedFlashSingleKey((LogiLed::KeyName)keyName, redPercentage, greenPercentage, bluePercentage, milliSecondsDuration, milliSecondsInterval)));
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int keyName               = Nan::To<int>(Nan::Get(obj, Nan::New("keyName").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   redPercentage         = Nan::To<int>(Nan::Get(obj, Nan::New("redPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   greenPercentage       = Nan::To<int>(Nan::Get(obj, Nan::New("greenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   bluePercentage        = Nan::To<int>(Nan::Get(obj, Nan::New("bluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   milliSecondsDuration  = Nan::To<int>(Nan::Get(obj, Nan::New("milliSecondsDuration").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   milliSecondsInterval  = Nan::To<int>(Nan::Get(obj, Nan::New("milliSecondsInterval").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedFlashSingleKey((LogiLed::KeyName)keyName, redPercentage, greenPercentage, bluePercentage, milliSecondsDuration, milliSecondsInterval)));
     }
-    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(PulseSingleKey) {
-    Nan::MaybeLocal<v8::Number> arg0 = Nan::To<v8::Number>(info[0]);
-    Nan::MaybeLocal<v8::Number> arg1 = Nan::To<v8::Number>(info[1]);
-    Nan::MaybeLocal<v8::Number> arg2 = Nan::To<v8::Number>(info[2]);
-    Nan::MaybeLocal<v8::Number> arg3 = Nan::To<v8::Number>(info[3]);
-    Nan::MaybeLocal<v8::Number> arg4 = Nan::To<v8::Number>(info[4]);
-    Nan::MaybeLocal<v8::Number> arg5 = Nan::To<v8::Number>(info[5]);
-    Nan::MaybeLocal<v8::Number> arg6 = Nan::To<v8::Number>(info[6]);
-    Nan::MaybeLocal<v8::Number> arg7 = Nan::To<v8::Number>(info[7]);
-    Nan::MaybeLocal<v8::Boolean> arg8 = Nan::To<v8::Boolean>(info[8]);
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
-    if (arg0.IsEmpty() || arg1.IsEmpty() || arg2.IsEmpty() || arg3.IsEmpty() || arg4.IsEmpty() || arg5.IsEmpty() || arg6.IsEmpty() || arg7.IsEmpty() || arg8.IsEmpty()) {
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(false));
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
     } else {
-        int keyName               = Nan::To<int>(arg0.ToLocalChecked()).FromJust()
-        ,   startRedPercentage    = Nan::To<int>(arg1.ToLocalChecked()).FromJust()
-        ,   startGreenPercentage  = Nan::To<int>(arg2.ToLocalChecked()).FromJust()
-        ,   startBluePercentage   = Nan::To<int>(arg3.ToLocalChecked()).FromJust()
-        ,   finishRedPercentage   = Nan::To<int>(arg4.ToLocalChecked()).FromJust()
-        ,   finishGreenPercentage = Nan::To<int>(arg5.ToLocalChecked()).FromJust()
-        ,   finishBluePercentage  = Nan::To<int>(arg6.ToLocalChecked()).FromJust()
-        ,   milliSecondsDuration  = Nan::To<int>(arg7.ToLocalChecked()).FromJust();
-        bool isInfinite           = Nan::To<bool>(arg8.ToLocalChecked()).FromJust();
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedPulseSingleKey((LogiLed::KeyName)keyName, startRedPercentage, startGreenPercentage, startBluePercentage, finishRedPercentage, finishGreenPercentage, finishBluePercentage, milliSecondsDuration, isInfinite)));
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int keyName               = Nan::To<int>(Nan::Get(obj, Nan::New("keyName").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   startRedPercentage    = Nan::To<int>(Nan::Get(obj, Nan::New("startRedPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   startGreenPercentage  = Nan::To<int>(Nan::Get(obj, Nan::New("startGreenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   startBluePercentage   = Nan::To<int>(Nan::Get(obj, Nan::New("startBluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   finishRedPercentage   = Nan::To<int>(Nan::Get(obj, Nan::New("finishRedPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   finishGreenPercentage = Nan::To<int>(Nan::Get(obj, Nan::New("finishGreenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   finishBluePercentage  = Nan::To<int>(Nan::Get(obj, Nan::New("finishBluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   milliSecondsDuration  = Nan::To<int>(Nan::Get(obj, Nan::New("milliSecondsDuration").ToLocalChecked()).ToLocalChecked()).FromJust();
+        bool isInfinite           = Nan::To<bool>(Nan::Get(obj, Nan::New("isInfinite").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedPulseSingleKey((LogiLed::KeyName)keyName, startRedPercentage, startGreenPercentage, startBluePercentage, finishRedPercentage, finishGreenPercentage, finishBluePercentage, milliSecondsDuration, isInfinite)));
     }
-    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(StopEffectsOnKey) {
-    Nan::MaybeLocal<v8::Number> arg0 = Nan::To<v8::Number>(info[0]);
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
 
-    v8::Local<v8::Object> obj = Nan::New<v8::Object>();
     if (arg0.IsEmpty()) {
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(false));
+        info.GetReturnValue().Set(Nan::New(false));
     } else {
-        int keyName              = Nan::To<int>(arg0.ToLocalChecked()).FromJust();
-        Nan::Set(obj, Nan::New("result").ToLocalChecked(), Nan::New(LogiLedStopEffectsOnKey((LogiLed::KeyName)keyName)));
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int keyName               = Nan::To<int>(Nan::Get(obj, Nan::New("keyName").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedStopEffectsOnKey((LogiLed::KeyName)keyName)));
     }
-    info.GetReturnValue().Set(obj);
 }
 
 NAN_METHOD(Shutdown) {

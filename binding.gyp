@@ -1,25 +1,5 @@
 {
     "targets": [
-        {
-            "target_name": "build_typescript",
-            "type": "none",
-            "actions": [
-                {
-                    "action_name": "run_typescript_compiler",
-                    "inputs": [ "constants.ts", "dummy.ts" ],
-                    "outputs": [ "dist/constants.js", "dist/dummy.js" ],
-                    "action": [
-                        "tsc",
-                            "--removeComments",
-                            "--preserveConstEnums",
-                            "--outDir", "dist",
-                            
-                            "constants.ts",
-                            "dummy.ts"
-                    ]
-                }
-            ]
-        }
     ],
     "conditions" : [
         ["OS=='win'", {
@@ -62,25 +42,6 @@
                         }]
                     ],
                 },
-
-                {
-                    "target_name": "copy_target",
-                    "dependencies": [ "bindings" ],
-                    "variables": {
-                        "target_platform": "win32"
-                    },
-                    "type": "none",
-                    "copies": [
-                        {
-                            "files": [
-                                "<(PRODUCT_DIR)/bindings.node",
-                                "<(PRODUCT_DIR)/bindings.pdb"
-                            ],
-                            "destination": "dist/<(target_platform)/<(target_arch)"
-                        }
-                    ]
-                },
-                
             ],
         }]
     ]
