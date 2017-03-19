@@ -10,7 +10,9 @@
     "download": "node ./download-sdk",
     "configure": "node-gyp configure",
     "build": "node-gyp build",
-    "rebuild": "node-gyp rebuild",
+    "clean": "node-gyp clean",
+    "rebuild": "node-gyp --debug rebuild",
+    "dist": "node-gyp rebuild --release --arch=x64 && node-gyp rebuild --release --arch=ia32 && node-gyp clean",
     "install": "node ./install",
     "test": "mocha"
   },
