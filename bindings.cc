@@ -16,6 +16,10 @@ NAN_MODULE_INIT(InitAll) {
     Nan::GetFunction(Nan::New<FunctionTemplate>(GetConfigOptionNumber)).ToLocalChecked());
   Nan::Set(target, Nan::New("getConfigOptionBool").ToLocalChecked(),
     Nan::GetFunction(Nan::New<FunctionTemplate>(GetConfigOptionBool)).ToLocalChecked());
+  Nan::Set(target, Nan::New("getConfigOptionColor").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<FunctionTemplate>(GetConfigOptionColor)).ToLocalChecked());
+  Nan::Set(target, Nan::New("setConfigOptionLabel").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<FunctionTemplate>(SetConfigOptionLabel)).ToLocalChecked());
 
   Nan::Set(target, Nan::New("setTargetDevice").ToLocalChecked(),
     Nan::GetFunction(Nan::New<FunctionTemplate>(SetTargetDevice)).ToLocalChecked());
@@ -32,8 +36,18 @@ NAN_MODULE_INIT(InitAll) {
   Nan::Set(target, Nan::New("stopEffects").ToLocalChecked(),
     Nan::GetFunction(Nan::New<FunctionTemplate>(StopEffects)).ToLocalChecked());
 
+  Nan::Set(target, Nan::New("setLightingFromBitmap").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<FunctionTemplate>(SetLightingFromBitmap)).ToLocalChecked());
+  Nan::Set(target, Nan::New("excludeKeysFromBitmap").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<FunctionTemplate>(ExcludeKeysFromBitmap)).ToLocalChecked());
+
   Nan::Set(target, Nan::New("setLightingForKeyWithKeyName").ToLocalChecked(),
     Nan::GetFunction(Nan::New<FunctionTemplate>(SetLightingForKeyWithKeyName)).ToLocalChecked());
+  Nan::Set(target, Nan::New("setLightingForKeyWithScanCode").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<FunctionTemplate>(SetLightingForKeyWithScanCode)).ToLocalChecked());
+  Nan::Set(target, Nan::New("setLightingForKeyWithQuartzCode").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<FunctionTemplate>(SetLightingForKeyWithQuartzCode)).ToLocalChecked());
+  
   Nan::Set(target, Nan::New("saveLightingForKey").ToLocalChecked(),
     Nan::GetFunction(Nan::New<FunctionTemplate>(SaveLightingForKey)).ToLocalChecked());
   Nan::Set(target, Nan::New("flashSingleKey").ToLocalChecked(),

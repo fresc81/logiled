@@ -91,14 +91,76 @@ NAN_METHOD(GetConfigOptionBool) {
 }
 
 NAN_METHOD(GetConfigOptionColor) {
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
+
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
+    } else {
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+
+        v8::Local<v8::String> configPath = Nan::To<v8::String>(Nan::Get(obj, Nan::New("configPath").ToLocalChecked()).ToLocalChecked()).ToLocalChecked();
+        ssize_t      szConfigPath   = DecodeBytes(configPath, Nan::Encoding::UTF8)+1;
+        char        *lpsConfigPath  = new char[szConfigPath];
+        ZeroMemory(lpsConfigPath, szConfigPath);
+        DecodeWrite(lpsConfigPath, szConfigPath, configPath, Nan::Encoding::UTF8);
+
+        std::string str(lpsConfigPath);
+        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+        std::wstring wstr = converter.from_bytes(str);
+
+        int          red     = Nan::To<int>(Nan::Get(obj, Nan::New("defaultRed").ToLocalChecked()).ToLocalChecked()).FromJust();
+        int          green   = Nan::To<int>(Nan::Get(obj, Nan::New("defaultGreen").ToLocalChecked()).ToLocalChecked()).FromJust();
+        int          blue    = Nan::To<int>(Nan::Get(obj, Nan::New("defaultBlue").ToLocalChecked()).ToLocalChecked()).FromJust();
+        bool         result  = LogiLedGetConfigOptionColor(wstr.c_str(), &red, &green, &blue);
+
+        Nan::Set(obj, Nan::New("red").ToLocalChecked(),   Nan::New(red));
+        Nan::Set(obj, Nan::New("green").ToLocalChecked(), Nan::New(green));
+        Nan::Set(obj, Nan::New("blue").ToLocalChecked(),  Nan::New(blue));
+        delete [] lpsConfigPath;
+
+        info.GetReturnValue().Set(Nan::New(result));
+    }
     
 }
 
 NAN_METHOD(GetConfigOptionKeyInput) {
-    
+    // TODO: implement
 }
 
 NAN_METHOD(SetConfigOptionLabel) {
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
+
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
+    } else {
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+
+        v8::Local<v8::String> configPath = Nan::To<v8::String>(Nan::Get(obj, Nan::New("configPath").ToLocalChecked()).ToLocalChecked()).ToLocalChecked();
+        ssize_t      szConfigPath   = DecodeBytes(configPath, Nan::Encoding::UTF8)+1;
+        char        *lpsConfigPath  = new char[szConfigPath];
+        ZeroMemory(lpsConfigPath, szConfigPath);
+        DecodeWrite(lpsConfigPath, szConfigPath, configPath, Nan::Encoding::UTF8);
+
+        std::string str(lpsConfigPath);
+        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+        std::wstring wstr = converter.from_bytes(str);
+
+        v8::Local<v8::String> label = Nan::To<v8::String>(Nan::Get(obj, Nan::New("label").ToLocalChecked()).ToLocalChecked()).ToLocalChecked();
+        ssize_t      szLabel        = DecodeBytes(label, Nan::Encoding::UTF8)+1;
+        char        *lpsLabel       = new char[szLabel];
+        ZeroMemory(lpsLabel, szLabel);
+        DecodeWrite(lpsLabel, szLabel, label, Nan::Encoding::UTF8);
+
+        std::string strLabel(lpsLabel);
+        std::wstring wstrLabel = converter.from_bytes(strLabel);
+
+        bool         result         = LogiLedSetConfigOptionLabel(wstr.c_str(), const_cast<wchar_t *>(wstrLabel.c_str()));
+
+        delete [] lpsLabel;
+        delete [] lpsConfigPath;
+
+        info.GetReturnValue().Set(Nan::New(result));
+    }
     
 }
 
@@ -173,19 +235,75 @@ NAN_METHOD(StopEffects) {
 }
 
 NAN_METHOD(SetLightingFromBitmap) {
-    
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
+
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
+    } else {
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+
+        v8::Local<v8::Value> bitmap = Nan::Get(obj, Nan::New("bitmap").ToLocalChecked()).ToLocalChecked();
+        size_t szBitmapLength = Nan::TypedArrayContents<unsigned char>(bitmap).length();
+        if (szBitmapLength >= LOGI_LED_BITMAP_SIZE) {
+            unsigned char *lpucBitmap = new unsigned char [LOGI_LED_BITMAP_SIZE];
+            ZeroMemory(lpucBitmap, LOGI_LED_BITMAP_SIZE);
+
+            for (size_t i=0; i<LOGI_LED_BITMAP_SIZE; i++) {
+                lpucBitmap[i] = (*Nan::TypedArrayContents<unsigned char>(bitmap))[i];
+            }
+
+            bool result = LogiLedSetLightingFromBitmap(lpucBitmap);
+            delete [] lpucBitmap;
+
+            info.GetReturnValue().Set(Nan::New(result));
+        }
+
+    }
 }
 
 NAN_METHOD(SetLightingForKeyWithScanCode) {
-    
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
+
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
+    } else {
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int keyCode               = Nan::To<int>(Nan::Get(obj, Nan::New("keyCode").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   redPercentage         = Nan::To<int>(Nan::Get(obj, Nan::New("redPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   greenPercentage       = Nan::To<int>(Nan::Get(obj, Nan::New("greenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   bluePercentage        = Nan::To<int>(Nan::Get(obj, Nan::New("bluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedSetLightingForKeyWithScanCode(keyCode, redPercentage, greenPercentage, bluePercentage)));
+    }
 }
 
 NAN_METHOD(SetLightingForKeyWithHidCode) {
-    
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
+
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
+    } else {
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int keyCode               = Nan::To<int>(Nan::Get(obj, Nan::New("keyCode").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   redPercentage         = Nan::To<int>(Nan::Get(obj, Nan::New("redPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   greenPercentage       = Nan::To<int>(Nan::Get(obj, Nan::New("greenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   bluePercentage        = Nan::To<int>(Nan::Get(obj, Nan::New("bluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedSetLightingForKeyWithHidCode(keyCode, redPercentage, greenPercentage, bluePercentage)));
+    }
 }
 
 NAN_METHOD(SetLightingForKeyWithQuartzCode) {
-    
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
+
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
+    } else {
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int keyCode               = Nan::To<int>(Nan::Get(obj, Nan::New("keyCode").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   redPercentage         = Nan::To<int>(Nan::Get(obj, Nan::New("redPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   greenPercentage       = Nan::To<int>(Nan::Get(obj, Nan::New("greenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   bluePercentage        = Nan::To<int>(Nan::Get(obj, Nan::New("bluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedSetLightingForKeyWithQuartzCode(keyCode, redPercentage, greenPercentage, bluePercentage)));
+    }
 }
 
 NAN_METHOD(SetLightingForKeyWithKeyName) {
@@ -228,6 +346,27 @@ NAN_METHOD(RestoreLightingForKey) {
 }
 
 NAN_METHOD(ExcludeKeysFromBitmap) {
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
+    
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
+    } else {
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        v8::Local<v8::Value> keyList = Nan::Get(obj, Nan::New("keyList").ToLocalChecked()).ToLocalChecked();
+        size_t szKeyListLength = Nan::TypedArrayContents<int>(keyList).length();
+
+        LogiLed::KeyName *lpKeyList = new LogiLed::KeyName[szKeyListLength];
+        ZeroMemory(lpKeyList, szKeyListLength * sizeof(LogiLed::KeyName));
+
+        for (size_t i=0; i<szKeyListLength; i++) {
+            lpKeyList[i] = (LogiLed::KeyName) (*Nan::TypedArrayContents<int>(keyList))[i];
+        }
+
+        bool result = LogiLedExcludeKeysFromBitmap(lpKeyList, (int) szKeyListLength);
+        delete [] lpKeyList;
+
+        info.GetReturnValue().Set(Nan::New(result));
+    }
 }
 
 NAN_METHOD(FlashSingleKey) {
