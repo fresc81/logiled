@@ -6,6 +6,13 @@
     "type": "git",
     "url": "https://github.com/fresc81/logiled.git"
   },
+  "keywords": [
+    "logitech",
+    "gaming",
+    "keyboard",
+    "LED",
+    "Logitech Gaming Software"
+  ],
   "scripts": {
     "download": "node ./download-sdk",
     "configure": "node-gyp configure",
@@ -13,7 +20,7 @@
     "clean": "node-gyp clean",
     "rebuild": "node-gyp rebuild",
     "dist": "npm run-script compile && prebuild --all --strip --arch x64 && prebuild --all --strip --arch ia32",
-    "compile": "tsc --removeComments --preserveConstEnums --outDir dist constants.ts dummy.ts",
+    "compile": "tsc --allowJs --removeComments --preserveConstEnums --rootDir src --outDir dist src/constants.ts src/dummy.ts src/keyname.ts",
     "install": "prebuild-install || node-gyp --release rebuild || echo Please build binaries manually by running `npm install` within the module directory.",
     "test": "mocha"
   },
