@@ -1,4 +1,6 @@
 
+const LOGITECH_LED_SDK_URL = 'https://gaming.logitech.com/sdk/LED_8.87.zip';
+
 var fs = require('fs');
 var unzip = require('unzip');
 var fstream = require('fstream');
@@ -16,7 +18,7 @@ if (!fs.existsSync(__dirname+'/LED')) {
     console.log('Download and unzip Logitech LED SDK...');
 
     // also show a fancy progress bar if stdout is a terminal
-    progress(request('https://gaming.logitech.com/sdk/LED_8.87.zip'), {
+    progress(request(LOGITECH_LED_SDK_URL), {
         throttle: 250
     })
     .on('progress', function (state) {
