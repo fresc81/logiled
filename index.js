@@ -1,3 +1,4 @@
+var path = require('path');
 
 module.exports = require('bindings')({
   compiled: 'dist',
@@ -13,13 +14,13 @@ module.exports = require('bindings')({
 });
 
 // mixin LED SDK constants...
-var constants = require(__dirname+'/dist/constants');
+var constants = require(path.join(__dirname, 'dist', 'constants'));
 Object.getOwnPropertyNames(constants).forEach(function (key) {
   module.exports[key] = constants[key];
 });
 
 // mixin keynames...
-var keynames = require(__dirname+'/dist/keyname');
+var keynames = require(path.join(__dirname, 'dist', 'keyname'));
 Object.getOwnPropertyNames(keynames).forEach(function (key) {
   module.exports[key] = keynames[key];
 });
