@@ -1,6 +1,9 @@
-var logiled = require('../');
-var assert = require('assert');
-var async = require('async');
+import 'mocha';
+import * as assert from 'assert';
+import * as async from 'async';
+
+import logiled from '.';
+import { SdkVersion, ConfigColorSetting, ConfigNumberSetting, ConfigBooleanSetting } from '.';
 
 const LOGI_LOGO = [
   logiled.KeyName.G_LOGO,
@@ -40,7 +43,7 @@ describe('logiled', function() {
 
   it('should get sdk version', function() {
 
-    var version = { };
+    var version: SdkVersion = { };
     var result = logiled.getSdkVersion(version);
 
     assert.equal(typeof result, 'boolean');
@@ -71,7 +74,7 @@ describe('logiled', function() {
     it('should setup keyboard (per key RGB)', function() {
 
       var result = logiled.setTargetDevice({
-        targetDevice: logiled.DEVICETYPE_PERKEY_RGB
+        targetDevice: logiled.TargetDevice.PerKeyRGB
       });
       assert.equal(typeof result, 'boolean');
       assert.equal(result, true);
@@ -80,7 +83,7 @@ describe('logiled', function() {
 
     it('should get a numeric config option', function() {
 
-      var configOption = {
+      var configOption: ConfigNumberSetting = {
         configPath: 'player/numeric',
         defaultValue: 0
       };
@@ -97,7 +100,7 @@ describe('logiled', function() {
 
     it('should get a boolean config option', function() {
 
-      var configOption = {
+      var configOption: ConfigBooleanSetting = {
         configPath: 'player/boolean',
         defaultValue: false
       };
@@ -114,7 +117,7 @@ describe('logiled', function() {
 
     it('should get a color config option', function() {
 
-      var configOption = {
+      var configOption: ConfigColorSetting = {
         configPath:   'player/color',
         defaultRed:   0,
         defaultGreen: 0,
@@ -332,11 +335,19 @@ describe('logiled', function() {
     it('should exclude W,S,A and D keys from bitmap', function() {
 
       var result = logiled.excludeKeysFromBitmap({
-        keyList: new Int32Array(LOGI_WSAD)
+        keyList: LOGI_WSAD
       });
       assert.equal(typeof result, 'boolean');
       assert.equal(result, true);
+    });
 
+    it('should exclude existing Int32Array key lists from bitmap', function() {
+
+      var result = logiled.excludeKeysFromBitmap({
+        keyList: new Int32Array(LOGI_WSAD) as any
+      });
+      assert.equal(typeof result, 'boolean');
+      assert.equal(result, true);
     });
 
     it('should animate lighting from bitmap', function(done) {
@@ -372,7 +383,7 @@ describe('logiled', function() {
             bitmap[offset++] = 255; // alpha
 
             doneX(null, true);
-          }, function (err, result) {
+          }, function (err) {
             var result = logiled.setLightingFromBitmap({
               bitmap: bitmap
             });
@@ -458,11 +469,44 @@ describe('logiled', function() {
     it('should setup keyboard/mouse (RGB)', function () {
 
       var result = logiled.setTargetDevice({
-        targetDevice: logiled.DEVICETYPE_RGB
+        targetDevice: logiled.TargetDevice.RGB
       });
       assert.equal(typeof result, 'boolean');
       assert.equal(result, true);
     });
+
+    it('should set device color (blue)', function(done) {
+
+      this.slow(6000);
+      this.timeout(10000);
+
+      var result = logiled.setLighting({
+        redPercentage:   0,
+        greenPercentage: 0,
+        bluePercentage:  100
+      });
+      assert.equal(typeof result, 'boolean');
+      assert.equal(result, true);
+
+      setTimeout(done, 5000);
+    });
+
+    // it('should set mouse zone colors (orange and purple)', function (done) {
+    //   this.slow(6000);
+    //   this.timeout(10000);
+
+    //   var result = logiled.setLightingForTargetZone({
+    //     deviceType: logiled.DeviceType.Mouse,
+    //     zone: 1,
+    //     redPercentage:   0,
+    //     greenPercentage: 0,
+    //     bluePercentage:  100
+    //   });
+    //   assert.equal(typeof result, 'boolean');
+    //   assert.equal(result, true);
+
+    //   setTimeout(done, 5000);
+    // });
 
     it('should blink device (red)', function (done) {
       this.slow(6000);
