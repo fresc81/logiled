@@ -1,50 +1,44 @@
+import { LogiLed } from './models';
 
 /*
  * dummy fallback implementation for unsupported operating systems.
  * behaves like Logitech Gaming Software isn't running.
  */
 
-function dummySDKFunction (): boolean {
-    return false;
-}
+const dummyBooleanSdkFunction: any = function () { return false; }
+const dummyVoidSdkFunction: any = function () { };
 
-function dummyVoidSDKFunction (): void {
-}
+export const dummy: LogiLed = {
 
-module dummy {
+    init: dummyBooleanSdkFunction,
 
-    export let init = dummySDKFunction;
+    getSdkVersion: dummyBooleanSdkFunction,
+    getConfigOptionNumber: dummyBooleanSdkFunction,
+    getConfigOptionBool: dummyBooleanSdkFunction,
+    getConfigOptionColor: dummyBooleanSdkFunction,
+    //getConfigOptionKeyInput: dummyBooleanSdkFunction,
+    setConfigOptionLabel: dummyBooleanSdkFunction,
 
-    export let getSdkVersion = dummySDKFunction;
-    export let getConfigOptionNumber = dummySDKFunction;
-    export let getConfigOptionBool = dummySDKFunction;
-    export let getConfigOptionColor = dummySDKFunction;
-    export let getConfigOptionKeyInput = dummySDKFunction;
-    export let setConfigOptionLabel = dummySDKFunction;
+    setTargetDevice: dummyBooleanSdkFunction,
+    saveCurrentLighting: dummyBooleanSdkFunction,
+    setLighting: dummyBooleanSdkFunction,
+    restoreLighting: dummyBooleanSdkFunction,
+    flashLighting: dummyBooleanSdkFunction,
+    pulseLighting: dummyBooleanSdkFunction,
+    stopEffects: dummyBooleanSdkFunction,
 
-    export let setTargetDevice = dummySDKFunction;
-    export let saveCurrentLighting = dummySDKFunction;
-    export let setLighting = dummySDKFunction;
-    export let restoreLighting = dummySDKFunction;
-    export let flashLighting = dummySDKFunction;
-    export let pulseLighting = dummySDKFunction;
-    export let stopEffects = dummySDKFunction;
+    setLightingFromBitmap: dummyBooleanSdkFunction,
+    setLightingForKeyWithScanCode: dummyBooleanSdkFunction,
+    setLightingForKeyWithHidCode: dummyBooleanSdkFunction,
+    setLightingForKeyWithQuartzCode: dummyBooleanSdkFunction,
+    setLightingForKeyWithKeyName: dummyBooleanSdkFunction,
+    saveLightingForKey: dummyBooleanSdkFunction,
+    restoreLightingForKey: dummyBooleanSdkFunction,
+    excludeKeysFromBitmap: dummyBooleanSdkFunction,
 
-    export let setLightingFromBitmap = dummySDKFunction;
-    export let setLightingForKeyWithScanCode = dummySDKFunction;
-    export let setLightingForKeyWithHidCode = dummySDKFunction;
-    export let setLightingForKeyWithQuartzCode = dummySDKFunction;
-    export let setLightingForKeyWithKeyName = dummySDKFunction;
-    export let saveLightingForKey = dummySDKFunction;
-    export let restoreLightingForKey = dummySDKFunction;
-    export let excludeKeysFromBitmap = dummySDKFunction;
+    flashSingleKey: dummyBooleanSdkFunction,
+    pulseSingleKey: dummyBooleanSdkFunction,
+    stopEffectsOnKey: dummyBooleanSdkFunction,
 
-    export let flashSingleKey = dummySDKFunction;
-    export let pulseSingleKey = dummySDKFunction;
-    export let stopEffectsOnKey = dummySDKFunction;
-
-    export let shutdown = dummyVoidSDKFunction;
-
-}
-
-export = dummy;
+    shutdown: dummyVoidSdkFunction
+};

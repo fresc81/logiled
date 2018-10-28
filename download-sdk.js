@@ -2,6 +2,8 @@
 const LOGITECH_LED_SDK_URL = 'https://gaming.logitech.com/sdk/LED_8.87.zip';
 
 var fs = require('fs');
+var path = require('path');
+var EOL = require('os').EOL;
 var unzip = require('unzip');
 var fstream = require('fstream');
 var request = require('request');
@@ -12,7 +14,7 @@ progressBar.format = '$bar; $percentage;% finished.';
 var writeStream = new fstream.Writer(__dirname);
 
 // only download SDK if not already done
-if (!fs.existsSync(__dirname+'/LED')) {
+if (!fs.existsSync(path.join(__dirname, 'LED'))) {
 
     // download and unzip SDK into the LED folder...
     console.log('Download and unzip Logitech LED SDK...');
@@ -30,14 +32,14 @@ if (!fs.existsSync(__dirname+'/LED')) {
         if (process.stdout.isTTY) {
             progressBar.clear();
         }
-        console.log('error downloading Logitech LED SDK:', err.message, '\n');
+        console.log('error downloading Logitech LED SDK:', err.message, EOL);
         process.exit(1);
     })
     .on('end', function (state) {
         if (process.stdout.isTTY) {
             progressBar.clear();
         }
-        console.log('finished successfully.\n');
+        console.log('finished successfully.' + EOL);
     })
     .pipe(unzip.Parse())
     .pipe(writeStream);

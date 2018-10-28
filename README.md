@@ -21,6 +21,7 @@ the 32 and 64 bit versions of NodeJS, io.js and electron.
 ## Features
 
  * full support for all functions of the Logitech LED SDK
+ * full TypeScript definitions for all methods, options, and key names
  * fallback compatibility layer for non-Windows operating systems -
    if not on Windows the module just behaves like the
    Logitech Gaming Software has been exited under Windows
