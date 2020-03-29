@@ -16,14 +16,14 @@
   ],
   "scripts": {
     "download": "node ./download-sdk",
-    "configure": "node-gyp configure",
-    "build": "node-gyp build",
-    "clean": "node-gyp clean",
-    "rebuild": "node-gyp rebuild",
-    "dist": "npm run-script compile && prebuild --all --strip --arch x64 && prebuild --all --strip --arch ia32",
-    "compile": "tsc",
-    "install": "prebuild-install || node-gyp --release rebuild || echo Please build binaries manually by running `npm install` within the module directory.",
-    "test": "mocha --require ts-node/register src/*.spec.ts"
+    "configure": "npx node-gyp configure",
+    "build": "npx node-gyp build",
+    "clean": "npx node-gyp clean",
+    "rebuild": "npx node-gyp rebuild",
+    "dist": "npm run-script compile && npx prebuild --all --strip --arch x64 && npx prebuild --all --strip --arch ia32",
+    "compile": "npx tsc",
+    "install": "npx prebuild-install || npx node-gyp --release rebuild || echo Please build binaries manually by running `npm install` within the module directory.",
+    "test": "npx mocha --require ts-node/register src/*.spec.ts"
   },
   "devDependencies": {
     "@types/assert": "^1.4.0",
