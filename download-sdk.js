@@ -43,6 +43,7 @@ if (!fs.existsSync(LED)) {
             progressBar.clear();
         }
         console.log('error downloading Logitech LED SDK:', err.message, EOL);
+        fs.rmdirSync(TMP);
         process.exit(1);
     })
     .on('end', function (state) {
