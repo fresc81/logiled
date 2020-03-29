@@ -3,5 +3,6 @@ prebuilds/
 build/
 dist/
 LED/
+TMP/
 archive/
 .vscode/
