@@ -22,6 +22,7 @@ const LOGI_KEY_NUMLOCK_HIDCODE     = 0x45;
 const LOGI_KEY_NUMLOCK_QUARTZCODE  = 0x47;
 
 describe('logiled', function() {
+  this.timeout(2000);
 
   it('should run on windows', function () {
 
