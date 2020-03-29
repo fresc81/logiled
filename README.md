@@ -20,7 +20,7 @@ the 32 and 64 bit versions of NodeJS, io.js and electron.
 
 ## Features
 
- * full support for all functions of the Logitech LED SDK
+ * support for most functions of the Logitech LED SDK
  * full TypeScript definitions for all methods, options, and key names
  * fallback compatibility layer for non-Windows operating systems -
    if not on Windows the module just behaves like the
@@ -76,7 +76,7 @@ logiled.shutdown();
 
 ## Building
 
-This project features precompiled binaries for nodeJS, io.js and electron.
+This project features precompiled binaries for nodeJS, and electron.
 
 To compile the extension yourself you will need to get Microsoft Visual Studio
 or the Microsoft Build Tools. To build logiled yourself, enter the module
@@ -95,8 +95,7 @@ You can confirm everything built correctly by [running the test suite](#to-run-t
 ### Node-Webkit
 
 There are no prebuilt binaries for node-webkit (nw.js) but you can compile logiled
-with `nw-gyp`. Every logiled release will at least be tested against the most recent
-version of node-webkit.
+with `nw-gyp`.
 
 ### To run tests:
 

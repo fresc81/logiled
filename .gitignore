@@ -1,5 +1,8 @@
 node_modules/
+prebuilds/
 build/
 dist/
 LED/
+archive/
 .vscode/
+prebuild-*

@@ -1,5 +1,6 @@
 
-const LOGITECH_LED_SDK_URL = 'https://gaming.logitech.com/sdk/LED_8.87.zip';
+//const LOGITECH_LED_SDK_URL = 'https://gaming.logitech.com/sdk/LED_8.87.zip';
+const LOGITECH_LED_SDK_URL = 'https://www.logitechg.com/sdk/LED_SDK_9.00.zip';
 
 var fs = require('fs');
 var path = require('path');

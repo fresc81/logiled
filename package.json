@@ -1,6 +1,6 @@
 {
   "name": "logiled",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "index.js",
   "types": "dist/index.d.ts",
   "repository": {
@@ -31,22 +31,22 @@
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.0",
     "async": "^2.1.5",
-    "fstream": "^1.0.11",
+    "fstream": "^1.0.12",
     "mocha": "^5.2.0",
     "nan": "^2.0.5",
-    "node-gyp": "^3.8.0",
+    "node-gyp": "^6.1.0",
     "nw-gyp": "^3.4.0",
-    "prebuild": "^6.1.0",
+    "prebuild": "^10.0.0",
     "progress-bar": "^0.1.1",
     "request": "^2.81.0",
     "request-progress": "^3.0.0",
-    "ts-node": "^7.0.1",
+    "ts-node": "^8.8.1",
     "typescript": "^2.2.1",
     "unzip": "^0.1.11"
   },
   "dependencies": {
     "bindings": "^1.2.1",
-    "prebuild-install": "^2.1.1"
+    "prebuild-install": "^5.3.3"
   },
   "license": "BSD-2-Clause"
 }
