@@ -32,7 +32,7 @@ describe('logiled', function() {
 
   it('should initialize sdk', function(done) {
     this.slow(500);
-    this.timeout(1000);
+    this.timeout(2500);
 
     var result = logiled.init();
     assert.equal(typeof result, 'boolean');

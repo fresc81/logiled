@@ -33,7 +33,7 @@
     "async": "^2.1.5",
     "fstream": "^1.0.12",
     "mocha": "^5.2.0",
-    "nan": "^2.0.5",
+    "nan": "^2.14.0",
     "node-gyp": "^6.1.0",
     "nw-gyp": "^3.4.0",
     "prebuild": "^10.0.0",
@@ -45,7 +45,7 @@
     "unzip": "^0.1.11"
   },
   "dependencies": {
-    "bindings": "^1.2.1",
+    "bindings": "^1.5.0",
     "prebuild-install": "^5.3.3"
   },
   "license": "BSD-2-Clause"
