@@ -2,20 +2,29 @@
 //const LOGITECH_LED_SDK_URL = 'https://gaming.logitech.com/sdk/LED_8.87.zip';
 const LOGITECH_LED_SDK_URL = 'https://www.logitechg.com/sdk/LED_SDK_9.00.zip';
 
-var fs = require('fs');
-var path = require('path');
-var EOL = require('os').EOL;
-var unzip = require('unzip');
-var fstream = require('fstream');
-var request = require('request');
-var progress = require('request-progress');
-var progressBar = require('progress-bar').create(process.stdout, (process.stdout.columns || 70) - 20);
+const fs = require('fs-extra');
+const path = require('path');
+const EOL = require('os').EOL;
+const unzip = require('unzip');
+const fstream = require('fstream');
+const request = require('request');
+const progress = require('request-progress');
+const progressBar = require('progress-bar').create(process.stdout, (process.stdout.columns || 70) - 20);
 progressBar.format = '$bar; $percentage;% finished.';
 
-var writeStream = new fstream.Writer(__dirname);
+const TMP = path.join(__dirname, 'TMP');
+const TMP_LED = path.join(TMP, 'LED');
+const LED = path.join(__dirname, 'LED');
 
 // only download SDK if not already done
-if (!fs.existsSync(path.join(__dirname, 'LED'))) {
+if (!fs.existsSync(LED)) {
+
+    if (fs.existsSync(TMP)) {
+        fs.removeSync(TMP);
+    }
+
+    fs.mkdirSync(TMP);
+    const writeStream = new fstream.Writer(TMP);
 
     // download and unzip SDK into the LED folder...
     console.log('Download and unzip Logitech LED SDK...');
@@ -37,6 +46,8 @@ if (!fs.existsSync(path.join(__dirname, 'LED'))) {
         process.exit(1);
     })
     .on('end', function (state) {
+        fs.moveSync(TMP_LED, LED);
+        fs.rmdirSync(TMP);
         if (process.stdout.isTTY) {
             progressBar.clear();
         }
