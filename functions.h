@@ -13,6 +13,7 @@ NAN_METHOD(GetConfigOptionKeyInput);
 NAN_METHOD(SetConfigOptionLabel);
 
 NAN_METHOD(SetTargetDevice);
+NAN_METHOD(SetLightingForTargetZone);
 NAN_METHOD(SaveCurrentLighting);
 NAN_METHOD(SetLighting);
 NAN_METHOD(RestoreLighting);

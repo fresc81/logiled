@@ -32,6 +32,10 @@ export interface ColorSetting {
     bluePercentage: number;
 }
 
+export interface ZoneSetting {
+    zone: number;
+}
+
 export interface DeviceTypeSetting {
     deviceType: DeviceType;
 }
@@ -138,6 +142,12 @@ export interface LogiLed {
      * @param options The target device.
      */
     setTargetDevice(options: TargetDeviceSetting): boolean;
+
+    /**
+     * Sets lighting on a specific zone for all connected zonal devices that match the device type.
+     * @param options The device type, zone and color values
+     */
+    setLightingForTargetZone(options: DeviceTypeSetting & ZoneSetting & ColorSetting): boolean;
 
     /**
      * Saves the current lighting so that it can be restored after a temporary effect is finished.

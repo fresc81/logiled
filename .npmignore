@@ -1,5 +1,8 @@
 node_modules/
+prebuilds/
 build/
 LED/
+TMP/
+archive/
 .vscode/
 .git/

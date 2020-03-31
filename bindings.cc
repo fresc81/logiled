@@ -23,6 +23,8 @@ NAN_MODULE_INIT(InitAll) {
 
   Nan::Set(target, Nan::New("setTargetDevice").ToLocalChecked(),
     Nan::GetFunction(Nan::New<FunctionTemplate>(SetTargetDevice)).ToLocalChecked());
+  Nan::Set(target, Nan::New("setLightingForTargetZone").ToLocalChecked(),
+    Nan::GetFunction(Nan::New<FunctionTemplate>(SetLightingForTargetZone)).ToLocalChecked());
   Nan::Set(target, Nan::New("saveCurrentLighting").ToLocalChecked(),
     Nan::GetFunction(Nan::New<FunctionTemplate>(SaveCurrentLighting)).ToLocalChecked());
   Nan::Set(target, Nan::New("setLighting").ToLocalChecked(),

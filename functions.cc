@@ -176,6 +176,22 @@ NAN_METHOD(SetTargetDevice) {
     }
 }
 
+NAN_METHOD(SetLightingForTargetZone) {
+    Nan::MaybeLocal<v8::Object> arg0 = Nan::To<v8::Object>(info[0]);
+
+    if (arg0.IsEmpty()) {
+        info.GetReturnValue().Set(Nan::New(false));
+    } else {
+        v8::Local<v8::Object> obj = arg0.ToLocalChecked();
+        int deviceType            = Nan::To<int>(Nan::Get(obj, Nan::New("deviceType").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   zone                  = Nan::To<int>(Nan::Get(obj, Nan::New("zone").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   redPercentage         = Nan::To<int>(Nan::Get(obj, Nan::New("redPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   greenPercentage       = Nan::To<int>(Nan::Get(obj, Nan::New("greenPercentage").ToLocalChecked()).ToLocalChecked()).FromJust()
+        ,   bluePercentage        = Nan::To<int>(Nan::Get(obj, Nan::New("bluePercentage").ToLocalChecked()).ToLocalChecked()).FromJust();
+        info.GetReturnValue().Set(Nan::New(LogiLedSetLightingForTargetZone((LogiLed::DeviceType)deviceType, zone, redPercentage, greenPercentage, bluePercentage)));
+    }
+}
+
 NAN_METHOD(SaveCurrentLighting) {
     info.GetReturnValue().Set(Nan::New(LogiLedSaveCurrentLighting()));
 }
