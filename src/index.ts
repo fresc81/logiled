@@ -1,6 +1,6 @@
 import bindings = require('bindings');
 
-import { LogiLed, TargetDevice, LogiLedStatic, KeyListSetting } from './models';
+import { LogiLed, TargetDevice, LogiLedStatic, KeyListSetting, DeviceType } from './models';
 import { Constants } from './constants';
 import { KeyName } from './keyname';
 
@@ -34,6 +34,7 @@ for (let key of Object.keys(Constants)) logiled[key] = Constants[key];
 // Add the enums to logiled...
 logiled.KeyName = KeyName;
 logiled.TargetDevice = TargetDevice;
+logiled.DeviceType = DeviceType;
 
 export default logiled;
 
