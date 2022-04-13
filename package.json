@@ -30,7 +30,7 @@
     "@types/async": "^3.0.8",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.5",
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "fs-extra": "^9.0.0",
     "fstream": "^1.0.12",
     "mocha": "^7.1.1",
